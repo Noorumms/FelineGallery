@@ -1,0 +1,112 @@
+﻿@model Feline_Gallery_v1.Models.Order
+
+@{
+    ViewData["Title"] = "Order Confirmation";
+}
+
+<div class="confirmation-section py-5">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Success Message -->
+                <div class="text-center mb-5">
+                    <div class="mb-4">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <h1 class="display-5 fw-light mb-3">Order Confirmed!</h1>
+                    <p class="lead text-muted">Thank you for your purchase. Your order has been received.</p>
+                    <p class="text-muted">Order #@Model.OrderId</p>
+                </div>
+
+                <!-- Order Details Card -->
+                <div class="card mb-4">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">Order Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <p class="text-muted mb-1">Order Date</p>
+                                <p class="mb-0"><strong>@Model.OrderDate.ToString("MMMM dd, yyyy")</strong></p>
+                            </div>
+                            <div class="col-6 text-end">
+                                <p class="text-muted mb-1">Order Status</p>
+                                <p class="mb-0"><span class="badge bg-warning text-dark">@Model.Status</span></p>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="mb-3">
+                            <h6 class="text-uppercase fw-bold mb-3">Customer Information</h6>
+                            <p class="mb-1"><strong>Name:</strong> @Model.CustomerName</p>
+                            <p class="mb-1"><strong>Email:</strong> @Model.CustomerEmail</p>
+                            <p class="mb-1"><strong>Phone:</strong> @Model.CustomerPhone</p>
+                        </div>
+
+                        <hr>
+
+                        <div class="mb-3">
+                            <h6 class="text-uppercase fw-bold mb-3">Shipping Address</h6>
+                            <p class="mb-0">@Model.ShippingAddress</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Items Card -->
+                <div class="card mb-4">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">Order Items</h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.OrderItems != null && Model.OrderItems.Any())
+                        {
+                            @foreach (var item in Model.OrderItems)
+                            {
+                                        <div class="d-flex mb-3 pb-3 border-bottom">
+                                            <img src="@(item.Artwork?.ImageUrl ?? "/images/placeholder.jpg")" 
+                                                 alt="Artwork" 
+                                                 class="me-3" 
+                                                 style="width: 100px; height: 100px; object-fit: cover;">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">@(item.Artwork?.Title ?? "Artwork")</h6>
+                                                <p class="text-muted small mb-2">Quantity: @item.Quantity</p>
+                                                <p class="mb-0"><strong>$@item.Price.ToString("N2")</strong></p>
+                                            </div>
+                                        </div>
+                            }
+                        }
+
+                        <div class="text-end pt-3 border-top border-dark">
+                            <h5 class="mb-0">Total: <span class="text-primary">$@Model.TotalAmount.ToString("N2")</span></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- What's Next -->
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">What Happens Next?</h5>
+                    </div>
+                    <div class="card-body">
+                        <ol class="mb-0">
+                            <li class="mb-2">You will receive an order confirmation email at <strong>@Model.CustomerEmail</strong></li>
+                            <li class="mb-2">Our team will prepare your artwork for shipment</li>
+                            <li class="mb-2">You'll receive a shipping notification with tracking information</li>
+                            <li class="mb-0">Your artwork will be delivered within 5-7 business days</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="text-center">
+                    <a asp-controller="Shop" asp-action="Index" class="btn btn-dark btn-lg me-2">Continue Shopping</a>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-dark btn-lg">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

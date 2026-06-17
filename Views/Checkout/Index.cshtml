@@ -1,0 +1,194 @@
+﻿@model Feline_Gallery_v1.ViewModels.CheckoutVM
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+@* Error Messages *@
+@if (TempData["ErrorMessage"] != null)
+{
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+}
+
+<div class="checkout-section py-5">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-12 mb-4">
+                <h1 class="display-5 fw-light">Checkout</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-controller="Shop" asp-action="Index">Shop</a></li>
+                        <li class="breadcrumb-item"><a asp-controller="Cart" asp-action="Index">Cart</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <form asp-action="PlaceOrder" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="row g-5">
+                <!-- LEFT SIDE: Checkout Form -->
+                <div class="col-lg-7">
+                    <!-- Customer Information -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-dark text-white">
+                            <h5 class="mb-0">Customer Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label asp-for="CustomerName" class="form-label"></label>
+                                    <input asp-for="CustomerName" class="form-control" placeholder="John Doe" />
+                                    <span asp-validation-for="CustomerName" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="CustomerEmail" class="form-label"></label>
+                                    <input asp-for="CustomerEmail" class="form-control" type="email" placeholder="john@example.com" />
+                                    <span asp-validation-for="CustomerEmail" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="CustomerPhone" class="form-label"></label>
+                                    <input asp-for="CustomerPhone" class="form-control" type="tel" placeholder="+1 (555) 123-4567" />
+                                    <span asp-validation-for="CustomerPhone" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shipping Address -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-dark text-white">
+                            <h5 class="mb-0">Shipping Address</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label asp-for="ShippingAddress" class="form-label"></label>
+                                    <input asp-for="ShippingAddress" class="form-control" placeholder="123 Main Street, Apt 4B" />
+                                    <span asp-validation-for="ShippingAddress" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="City" class="form-label"></label>
+                                    <input asp-for="City" class="form-control" placeholder="New York" />
+                                    <span asp-validation-for="City" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="PostalCode" class="form-label"></label>
+                                    <input asp-for="PostalCode" class="form-control" placeholder="10001" />
+                                    <span asp-validation-for="PostalCode" class="text-danger small"></span>
+                                </div>
+                                <div class="col-12">
+                                    <label asp-for="Country" class="form-label"></label>
+                                    <select asp-for="Country" class="form-select">
+                                        <option value="United States">United States</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="United Kingdom">United Kingdom</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="Germany">Germany</option>
+                                        <option value="France">France</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <span asp-validation-for="Country" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-dark text-white">
+                            <h5 class="mb-0">Payment Method</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <strong>Cash on Delivery</strong> - Pay when you receive your artwork
+                            </div>
+                            <input type="hidden" asp-for="PaymentMethod" value="CashOnDelivery" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE: Order Summary -->
+                <div class="col-lg-5">
+                    <div class="card sticky-top" style="top: 100px;">
+                        <div class="card-header bg-dark text-white">
+                            <h5 class="mb-0">Order Summary</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Cart Items -->
+                            <div class="order-items mb-3">
+                                @foreach (var item in Model.Cart.Items)
+                                {
+                                        <div class="d-flex mb-3 pb-3 border-bottom">
+                                            <img src="@(item.ImageUrl ?? "/images/placeholder.jpg")" 
+                                                 alt="@item.Title" 
+                                                 class="me-3" 
+                                                 style="width: 80px; height: 80px; object-fit: cover;">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">@item.Title</h6>
+                                                <p class="text-muted small mb-1">@item.ArtistName</p>
+                                                <p class="mb-0">
+                                                    <strong>$@item.Price.ToString("N2")</strong>
+                                                @if (item.Quantity > 1)
+                                                {
+                                                            <span class="text-muted">× @item.Quantity</span>
+                                                }
+                                                </p>
+                                            </div>
+                                        </div>
+                                }
+                            </div>
+
+                            <!-- Pricing Breakdown -->
+                            <div class="pricing-summary">
+                                <div class="d-flex justify-content-between py-2 border-bottom">
+                                    <span>Subtotal (@Model.Cart.Items.Sum(x => x.Quantity) items)</span>
+                                    <span>$@Model.Subtotal.ToString("N2")</span>
+                                </div>
+                                <div class="d-flex justify-content-between py-2 border-bottom">
+                                    <span>Shipping</span>
+                                    <span>@(Model.ShippingCost == 0 ? "Free" : "$" + Model.ShippingCost.ToString("N2"))</span>
+                                </div>
+                                <div class="d-flex justify-content-between py-2 border-bottom">
+                                    <span>Tax</span>
+                                    <span>$@Model.Tax.ToString("N2")</span>
+                                </div>
+                                <div class="d-flex justify-content-between py-3 border-top border-dark">
+                                    <strong class="h5 mb-0">Total</strong>
+                                    <strong class="h5 mb-0 text-primary">$@Model.GrandTotal.ToString("N2")</strong>
+                                </div>
+                            </div>
+
+                            <!-- Place Order Button -->
+                            <button type="submit" class="btn btn-dark btn-lg w-100 mt-3">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2" style="vertical-align: middle;">
+                                    <path d="M9 11l3 3L22 4"></path>
+                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                </svg>
+                                Place Order
+                            </button>
+
+                            <div class="text-center mt-3">
+                                <small class="text-muted">
+                                    By placing this order, you agree to our 
+                                    <a href="#">Terms & Conditions</a>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

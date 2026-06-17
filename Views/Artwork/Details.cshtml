@@ -1,0 +1,214 @@
+﻿@model Feline_Gallery_v1.ViewModels.ArtworkDetailsVM
+@{
+    ViewData["Title"] = Model.Artwork.Title;
+}
+
+@* Success/Error Messages *@
+@if (TempData["SuccessMessage"] != null)
+{
+        <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 9999; width: auto; max-width: 500px;" role="alert">
+            <strong>✓</strong> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+        <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 9999; width: auto; max-width: 500px;" role="alert">
+            <strong>✗</strong> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+}
+
+<div class="artwork-detail-section py-5">
+    <div class="container my-5">
+        <div class="row g-5">
+            <!-- LEFT SIDE: Image -->
+            <div class="col-lg-7">
+                <div class="artwork-detail-images">
+                    <div class="main-image mb-3">
+                        <img src="@Model.Artwork.ImageUrl" 
+                             class="img-fluid w-100" 
+                             alt="@Model.Artwork.Title" 
+                             id="mainImage"
+                             style="max-height: 600px; object-fit: contain;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE: Details -->
+            <div class="col-lg-5">
+                <div class="artwork-detail-info">
+
+                    <!-- Title & Artist -->
+                    <div class="artwork-header mb-4">
+                        <h1 class="display-5 fw-light mb-2">@Model.Artwork.Title</h1>
+                        <p class="artwork-artist-name h5 text-muted">
+                            <a asp-controller="Artist" asp-action="Profile" 
+                               asp-route-id="@Model.Artist?.ArtistId" 
+                               class="text-decoration-none text-dark border-bottom border-dark">
+                                @Model.Artist?.Name
+                            </a>
+                        </p>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="artwork-price-section bg-light p-4 mb-4">
+                        <p class="artwork-price-label text-uppercase small fw-bold mb-2 text-muted">Price</p>
+                        <p class="artwork-price-value display-6 mb-0">$@Model.Artwork.Price.ToString("N2")</p>
+                        @if (!Model.Artwork.IsAvailable)
+                        {
+                                <p class="text-danger mt-2">
+                                    <strong>SOLD</strong>
+                                </p>
+                        }
+                    </div>
+
+                    <!-- Actions -->
+                    @if (Model.Artwork.IsAvailable)
+                    {
+                            <div class="artwork-actions mb-4">
+                                <div class="row g-3">
+                                    <!-- Add to Cart Button -->
+                                    <div class="col-12">
+                                        <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                        @Html.AntiForgeryToken()
+                                            <input type="hidden" name="artworkId" value="@Model.Artwork.ArtworkId" />
+                                            <button type="submit" class="btn btn-dark btn-lg w-100">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2" style="vertical-align: middle;">
+                                                    <circle cx="9" cy="21" r="1"></circle>
+                                                    <circle cx="20" cy="21" r="1"></circle>
+                                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                                </svg>
+                                                Add to Cart
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                  
+                                </div>
+                            </div>
+                    }
+                    else
+                    {
+                            <div class="alert alert-danger" role="alert">
+                                <strong>SOLD OUT</strong> - This artwork is no longer available.
+                            </div>
+                    }
+
+                    <!-- Specifications -->
+                    <div class="artwork-specifications mb-4">
+                        <h3 class="h5 mb-3 text-uppercase fw-bold">Specifications</h3>
+
+                        <div class="d-flex justify-content-between py-3 border-bottom">
+                            <span class="text-muted">Category</span>
+                            <span class="fw-medium">@Model.Category?.Name</span>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(Model.Artwork.Dimensions))
+                        {
+                                <div class="d-flex justify-content-between py-3 border-bottom">
+                                    <span class="text-muted">Dimensions</span>
+                                    <span class="fw-medium">@Model.Artwork.Dimensions</span>
+                                </div>
+                        }
+
+                        @if (Model.Artwork.Year.HasValue)
+                        {
+                                <div class="d-flex justify-content-between py-3 border-bottom">
+                                    <span class="text-muted">Year</span>
+                                    <span class="fw-medium">@Model.Artwork.Year</span>
+                                </div>
+                        }
+
+                        <div class="d-flex justify-content-between py-3 border-bottom">
+                            <span class="text-muted">Status</span>
+                            <span class="fw-medium">
+                                @if (Model.Artwork.IsAvailable)
+                                {
+                                        <span class="text-success">Available</span>
+                                }
+                                else
+                                {
+                                        <span class="text-danger">Sold</span>
+                                }
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    @if (!string.IsNullOrEmpty(Model.Artwork.Description))
+                    {
+                            <div class="artwork-description mb-4">
+                                <h3 class="h5 mb-3 text-uppercase fw-bold">About this Artwork</h3>
+                                <p class="text-muted">@Model.Artwork.Description</p>
+                            </div>
+                    }
+
+                    <!-- Shipping Info -->
+                    <div class="artwork-shipping bg-light p-4">
+                        <h3 class="h5 mb-3 text-uppercase fw-bold">Shipping & Returns</h3>
+                        <p class="mb-2"><strong>Free shipping</strong> on orders over $2,000</p>
+                        <p class="mb-2"><strong>14-day return policy</strong> - Return for any reason within 14 days</p>
+                        <p class="mb-0"><strong>Certificate of Authenticity</strong> included with every purchase</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Related Artworks Section -->
+@if (Model.RelatedArtworks != null && Model.RelatedArtworks.Any())
+{
+        <section class="related-artworks-section py-5 bg-light">
+            <div class="container">
+                <div class="section-header mb-5">
+                    <h2 class="display-6 fw-light">More from this Category</h2>
+                </div>
+                <div class="row g-4">
+                @foreach (var artwork in Model.RelatedArtworks)
+                {
+                            <div class="col-lg-4 col-md-6">
+                                <a asp-controller="Artwork" asp-action="Details" asp-route-id="@artwork.ArtworkId" 
+                                   class="artwork-card text-decoration-none d-block">
+                                    <div class="artwork-image position-relative mb-3">
+                                        <img src="@(artwork.ImageUrl ?? "/images/placeholder.jpg")" 
+                                             class="img-fluid w-100" 
+                                             alt="@artwork.Title" 
+                                             style="height: 350px; object-fit: cover;">
+                                        <div class="artwork-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                                            <button class="btn btn-light rounded-circle btn-icon" type="button">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <line x1="12" y1="8" x2="12" y2="16"/>
+                                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="artwork-info px-2">
+                                        <h3 class="h5 mb-1 fw-normal">@artwork.Title</h3>
+                                        <p class="artwork-artist text-muted mb-2 small">@(artwork.Artist?.Name ?? "Unknown Artist")</p>
+                                        <p class="artwork-price fw-bold mb-0">$@artwork.Price.ToString("N2")</p>
+                                    </div>
+                                </a>
+                            </div>
+                }
+                </div>
+            </div>
+        </section>
+}
+
+@section Scripts {
+        <script>
+            // Auto-dismiss alerts after 5 seconds
+            setTimeout(function() {
+                var alerts = document.querySelectorAll('.alert');
+                alerts.forEach(function(alert) {
+                    var bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                });
+            }, 5000);
+        </script>
+}

@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="page-header bg-light text-center py-5">
+    <div class="container mt-5 pt-4">
+        <h1 class="display-4 fw-light mb-3">Access Denied</h1>
+        <p class="lead text-muted mx-auto" style="max-width: 700px;">
+            You don't have permission to access this page
+        </p>
+    </div>
+</div>
+
+<section class="access-denied-section py-5">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="bg-light p-5 text-center">
+                    <div class="mb-4">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-muted">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="15" y1="9" x2="9" y2="15"/>
+                            <line x1="9" y1="9" x2="15" y2="15"/>
+                        </svg>
+                    </div>
+
+                    <h3 class="h4 fw-light mb-4">Access Restricted</h3>
+                    <p class="text-muted mb-4">
+                        This page requires special permissions. If you believe you should have access, please contact the administrator.
+                    </p>
+
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-dark btn-lg">
+                            Back to Home
+                        </a>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                                <a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-outline-dark btn-lg">
+                                    Login
+                                </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

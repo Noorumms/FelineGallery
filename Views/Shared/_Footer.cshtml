@@ -1,0 +1,36 @@
+﻿<footer class="footer bg-dark text-white mt-5">
+    <div class="container py-5">
+        <div class="row g-4 mb-5">
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-brand mb-3">FELINE GALLERY</div>
+                <p class="footer-text">Connecting art lovers with exceptional works from creators around the world.</p>
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-6">
+                <h4 class="footer-title">Explore</h4>
+                <a asp-area="" asp-controller="Exhibitions" asp-action="Index" class="footer-link d-block mb-2">Exhibitions</a>
+                <a asp-area="" asp-controller="Artist" asp-action="Profile" class="footer-link d-block mb-2">Artists</a>
+                <a asp-area="" asp-controller="Shop" asp-action="Index" class="footer-link d-block mb-2">Shop</a>
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-6">
+                <h4 class="footer-title">Shop</h4>
+                <a asp-area="" asp-controller="Category" asp-action="Index" asp-route-id="Paintings" class="footer-link d-block mb-2">Paintings</a>
+                <a asp-area="" asp-controller="Category" asp-action="Index" asp-route-id="Monotone" class="footer-link d-block mb-2">Monotone Art</a>
+                <a asp-area="" asp-controller="Category" asp-action="Index" asp-route-id="Drawing" class="footer-link d-block mb-2">Drawing</a>
+                <a asp-area="" asp-controller="Category" asp-action="Index" asp-route-id="Sculpture" class="footer-link d-block mb-2">Sculpture</a>
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-6">
+                <h4 class="footer-title">Contact</h4>
+                <a asp-area="" asp-controller="Home" asp-action="About" class="footer-link d-block mb-2">About</a>
+                <a asp-area="" asp-controller="Home" asp-action="Contact" class="footer-link d-block mb-2">Contact Us</a>
+                <a asp-area="" asp-controller="Home" asp-action="About" class="footer-link d-block mb-2">Press</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom pt-4 border-top text-center">
+            <p class="mb-0">© 2025 Feline Gallery. All rights reserved.</p>
+        </div>
+    </div>
+</footer>

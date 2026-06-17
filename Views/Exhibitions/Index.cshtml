@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Exhibitions";
+}
+
+<div class="page-header bg-light text-center py-5">
+    <div class="container mt-5 pt-4">
+        <h1 class="display-4 fw-light mb-3">Exhibitions</h1>
+        <p class="lead text-muted mx-auto" style="max-width: 700px;">
+            Discover our current and upcoming exhibitions featuring exceptional works from renowned and emerging artists worldwide.
+        </p>
+    </div>
+</div>
+
+<section class="exhibitions-section py-5">
+    <div class="container">
+        <div class="row g-5">
+
+            @* Exhibition 1 *@
+            <div class="col-lg-6">
+                <a asp-area="" asp-controller="Exhibitions" asp-action="Details" asp-route-id="1" class="exhibition-card text-decoration-none d-block">
+                    <div class="exhibition-image mb-3">
+                        <img src="~/images/Exhibitions/Exhibition01.webp" class="img-fluid w-100" alt="Exhibition" style="height: 400px; object-fit: cover;">
+                    </div>
+                    <div class="exhibition-info px-3">
+                        <span class="exhibition-status badge mb-3">Current</span>
+                        <h3 class="h4 mb-2 fw-normal">Abstract Expressions</h3>
+                        <p class="exhibition-dates text-muted mb-3">November 15, 2024 - January 20, 2025</p>
+                        <p class="exhibition-description text-muted">
+                            A stunning collection of abstract paintings that challenge traditional perspectives and invite viewers into worlds of color and form.
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+            @* Exhibition 2 *@
+            <div class="col-lg-6">
+                <a asp-area="" asp-controller="Exhibitions" asp-action="Details" asp-route-id="2" class="exhibition-card text-decoration-none d-block">
+                    <div class="exhibition-image mb-3">
+                        <img src="~/images/exhibitions/exhibition2.jpg" class="img-fluid w-100" alt="Exhibition" style="height: 400px; object-fit: cover;">
+                    </div>
+                    <div class="exhibition-info px-3">
+                        <span class="badge mb-3">Current</span>
+                        <h3 class="h4 mb-2 fw-normal">Contemporary Visions</h3>
+                        <p class="exhibition-dates text-muted mb-3">December 1, 2024 - February 15, 2025</p>
+                        <p class="exhibition-description text-muted">
+                            Featuring works from emerging contemporary artists who are redefining modern art through innovative techniques and bold concepts.
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+            @* Exhibition 3 *@
+            <div class="col-lg-6">
+                <a asp-area="" asp-controller="Exhibitions" asp-action="Details" asp-route-id="3" class="exhibition-card text-decoration-none d-block">
+                    <div class="exhibition-image mb-3">
+                        <img src="~/images/Exhibitions/Exhibition03.jpg" class="img-fluid w-100" alt="Exhibition" style="height: 400px; object-fit: cover;">
+                    </div>
+                    <div class="exhibition-info px-3">
+                        <span class="exhibition-status badge bg-light text-dark mb-3">Upcoming</span>
+                        <h3 class="h4 mb-2 fw-normal">Sculptural Forms</h3>
+                        <p class="exhibition-dates text-muted mb-3">January 5, 2025 - March 30, 2025</p>
+                        <p class="exhibition-description text-muted">
+                            An exploration of three-dimensional art featuring sculptures that push the boundaries of material and space.
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+            @* Exhibition 4 *@
+            <div class="col-lg-6">
+                <a asp-area="" asp-controller="Exhibitions" asp-action="Details" asp-route-id="4" class="exhibition-card text-decoration-none d-block">
+                    <div class="exhibition-image mb-3">
+                        <img src="~/images/Exhibitions/Exhibition4.jpg" class="img-fluid w-100" alt="Exhibition" style="height: 400px; object-fit: cover;">
+                    </div>
+                    <div class="exhibition-info px-3">
+                        <span class="exhibition-status badge bg-light text-dark mb-3">Upcoming</span>
+                        <h3 class="h4 mb-2 fw-normal">Light & Shadow</h3>
+                        <p class="exhibition-dates text-muted mb-3">February 10, 2025 - April 25, 2025</p>
+                        <p class="exhibition-description text-muted">
+                            A photography exhibition capturing the interplay of light and shadow in urban and natural landscapes.
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>

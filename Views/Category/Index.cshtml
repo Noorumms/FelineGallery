@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Feline_Gallery_v1.Models.Category>
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="page-header bg-light text-center py-5">
+    <div class="container mt-5 pt-4">
+        <h1 class="display-4 fw-light mb-3">Art Categories</h1>
+        <p class="lead text-muted mx-auto" style="max-width: 700px;">
+            Explore our diverse collection organized by category
+        </p>
+    </div>
+</div>
+
+<section class="categories-section py-5">
+    <div class="container">
+        <div class="row g-4">
+            @foreach (var category in Model)
+            {
+                    <div class="col-lg-4 col-md-6">
+                        <a asp-controller="Category" asp-action="Details" asp-route-id="@category.CategoryId" 
+                           class="text-decoration-none d-block h-100">
+                            <div class="card border-0 shadow-sm h-100">
+                            @if (!string.IsNullOrEmpty(category.ImageUrl))
+                            {
+                                        <img src="@category.ImageUrl" class="card-img-top" alt="@category.Name" 
+                                             style="height: 250px; object-fit: cover;">
+                            }
+                            else
+                            {
+                                        <div class="bg-light d-flex align-items-center justify-content-center" 
+                                             style="height: 250px;">
+                                            <h2 class="text-muted">@category.Name</h2>
+                                        </div>
+                            }
+                                <div class="card-body">
+                                    <h3 class="h4 mb-2 fw-normal text-dark">@category.Name</h3>
+                                @if (!string.IsNullOrEmpty(category.Description))
+                                {
+                                            <p class="text-muted mb-3">@category.Description</p>
+                                }
+                                    <span class="btn btn-outline-primary btn-sm">Browse Artworks →</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,187 @@
+﻿@model Feline_Gallery_v1.Models.PaginatedList<Feline_Gallery_v1.Models.Artwork>
+@{
+    ViewData["Title"] = "Shop";
+}
+
+<div class="page-header bg-light text-center py-5">
+    <div class="container mt-5 pt-4">
+        <h1 class="display-4 fw-light mb-3">Shop</h1>
+        <p class="lead text-muted mx-auto" style="max-width: 700px;">
+            Browse our collection of original artworks available for purchase. Find the perfect piece to enhance your space.
+        </p>
+    </div>
+</div>
+
+<div class="shop-filters-section py-4 border-bottom">
+    <div class="container">
+        <form method="get" asp-action="Index">
+            <div class="row g-3">
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label filter-label">Category</label>
+                    <select name="categoryId" class="form-select" onchange="this.form.submit()">
+                        <option value="">All Categories</option>
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                                <option value="@category.CategoryId" selected="@(ViewBag.CurrentCategory == category.CategoryId)">
+                                @category.Name
+                                </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label filter-label">Price Range</label>
+                    <select name="priceRange" class="form-select" onchange="this.form.submit()">
+                        <option value="">All Prices</option>
+                        <option value="0-1000" selected="@(ViewBag.CurrentPriceRange == "0-1000")">Under $1,000</option>
+                        <option value="1000-5000" selected="@(ViewBag.CurrentPriceRange == "1000-5000")">$1,000 - $5,000</option>
+                        <option value="5000-10000" selected="@(ViewBag.CurrentPriceRange == "5000-10000")">$5,000 - $10,000</option>
+                        <option value="10000-999999" selected="@(ViewBag.CurrentPriceRange == "10000-999999")">Over $10,000</option>
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label filter-label">Sort By</label>
+                    <select name="sortBy" class="form-select" onchange="this.form.submit()">
+                        <option value="newest" selected="@(ViewBag.CurrentSort == "newest")">Newest First</option>
+                        <option value="price_asc" selected="@(ViewBag.CurrentSort == "price_asc")">Price: Low to High</option>
+                        <option value="price_desc" selected="@(ViewBag.CurrentSort == "price_desc")">Price: High to Low</option>
+                        <option value="title" selected="@(ViewBag.CurrentSort == "title")">Title A-Z</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* Results Info *@
+<div class="container mt-4">
+    <p class="text-muted">
+        Showing @Model.Items.Count of @Model.TotalCount artworks (Page @Model.PageIndex of @Model.TotalPages)
+    </p>
+</div>
+
+<section class="shop-section py-5">
+    <div class="container">
+        <div class="row g-4">
+            @if (Model.Items.Any())
+            {
+                @foreach (var artwork in Model.Items)
+                {
+                            <div class="col-lg-4 col-md-6">
+                                <a asp-controller="Artwork" asp-action="Details" asp-route-id="@artwork.ArtworkId" class="artwork-card text-decoration-none d-block">
+                                    <div class="artwork-image position-relative mb-3">
+                                        <img src="@artwork.ImageUrl" class="img-fluid w-100" alt="@artwork.Title" style="height: 350px; object-fit: cover;">
+                                        <div class="artwork-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                                            <button class="btn btn-light rounded-circle btn-icon" type="button">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <line x1="12" y1="8" x2="12" y2="16"/>
+                                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="artwork-info px-2">
+                                        <h3 class="h5 mb-1 fw-normal">@artwork.Title</h3>
+                                        <p class="artwork-artist text-muted mb-2 small">@artwork.Artist?.Name</p>
+                                        <p class="artwork-price fw-bold mb-0">$@artwork.Price.ToString("N2")</p>
+                                    </div>
+                                </a>
+                            </div>
+                }
+            }
+            else
+            {
+                    <div class="col-12 text-center py-5">
+                        <p class="text-muted">No artworks found matching your filters.</p>
+                    </div>
+            }
+        </div>
+
+        @* Pagination Controls *@
+        @if (Model.TotalPages > 1)
+        {
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+
+                            @* Previous Button *@
+                                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                                    <a class="page-link" 
+                                       asp-action="Index" 
+                                       asp-route-page="@(Model.PageIndex - 1)"
+                                       asp-route-categoryId="@ViewBag.CurrentCategory"
+                                       asp-route-priceRange="@ViewBag.CurrentPriceRange"
+                                       asp-route-sortBy="@ViewBag.CurrentSort">
+                                        Previous
+                                    </a>
+                                </li>
+
+                            @* Page Numbers (show max 10 pages) *@
+                            @{
+                                int startPage = Math.Max(1, Model.PageIndex - 5);
+                                int endPage = Math.Min(Model.TotalPages, Model.PageIndex + 4);
+                            }
+
+                            @if (startPage > 1)
+                            {
+                                        <li class="page-item">
+                                            <a class="page-link" asp-action="Index" asp-route-page="1"
+                                               asp-route-categoryId="@ViewBag.CurrentCategory"
+                                               asp-route-priceRange="@ViewBag.CurrentPriceRange"
+                                               asp-route-sortBy="@ViewBag.CurrentSort">1</a>
+                                        </li>
+                                @if (startPage > 2)
+                                {
+                                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                                }
+                            }
+
+                            @for (int i = startPage; i <= endPage; i++)
+                            {
+                                        <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                                            <a class="page-link" 
+                                               asp-action="Index" 
+                                               asp-route-page="@i"
+                                               asp-route-categoryId="@ViewBag.CurrentCategory"
+                                               asp-route-priceRange="@ViewBag.CurrentPriceRange"
+                                               asp-route-sortBy="@ViewBag.CurrentSort">
+                                        @i
+                                            </a>
+                                        </li>
+                            }
+
+                            @if (endPage < Model.TotalPages)
+                            {
+                                @if (endPage < Model.TotalPages - 1)
+                                {
+                                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                                }
+                                        <li class="page-item">
+                                            <a class="page-link" asp-action="Index" asp-route-page="@Model.TotalPages"
+                                               asp-route-categoryId="@ViewBag.CurrentCategory"
+                                               asp-route-priceRange="@ViewBag.CurrentPriceRange"
+                                               asp-route-sortBy="@ViewBag.CurrentSort">@Model.TotalPages</a>
+                                        </li>
+                            }
+
+                            @* Next Button *@
+                                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                                    <a class="page-link" 
+                                       asp-action="Index" 
+                                       asp-route-page="@(Model.PageIndex + 1)"
+                                       asp-route-categoryId="@ViewBag.CurrentCategory"
+                                       asp-route-priceRange="@ViewBag.CurrentPriceRange"
+                                       asp-route-sortBy="@ViewBag.CurrentSort">
+                                        Next
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+        }
+    </div>
+</section>
+
+

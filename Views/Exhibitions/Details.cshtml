@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewData["Title"] = "Exhibition Details";
+}
+
+<div class="exhibition-detail-header py-5">
+    <div class="container my-5">
+        <div class="row g-5">
+            <div class="col-lg-7">
+                <img src="~/images/Exhibitions/Exhibition1.jpg" class="img-fluid w-100" alt="Exhibition">
+            </div>
+            <div class="col-lg-5">
+                <span class="exhibition-status badge mb-3">Current Exhibition</span>
+                <h1 class="display-5 mb-3">Abstract Expressions</h1>
+                <p class="exhibition-dates h5 text-muted mb-2">November 15, 2024 - January 20, 2025</p>
+                <p class="exhibition-location text-muted mb-4">Main Gallery, First Floor</p>
+                <div class="exhibition-description mb-4">
+                    <p>A stunning collection of abstract paintings that challenge traditional perspectives and invite viewers into worlds of color and form. This exhibition features over 50 works from 15 contemporary artists.</p>
+                    <p>The exhibition explores the evolution of abstract expressionism from its mid-20th century origins to contemporary interpretations, showcasing how artists continue to push boundaries and redefine what abstract art means today.</p>
+                </div>
+                <div class="exhibition-actions d-flex gap-3">
+                    <a href="#" class="btn btn-dark btn-lg">Book Tickets</a>
+                    <a href="#" class="btn btn-outline-dark btn-lg">Share Exhibition</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="featured-artworks-section py-5 bg-light">
+    <div class="container">
+        <div class="section-header mb-5">
+            <h2 class="display-6">Featured Artworks</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <a asp-area="" asp-controller="Artwork" asp-action="Details" asp-route-id="1" class="artwork-card text-decoration-none d-block">
+                    <div class="artwork-image mb-3">
+                        <img src="~/images/artworks/artwork1.jpg" class="img-fluid w-100" alt="Artwork">
+                    </div>
+                    <div class="artwork-info">
+                        <h3 class="h5 mb-1">Crimson Dreams</h3>
+                        <p class="artwork-artist text-muted mb-2">Sarah Mitchell</p>
+                        <p class="artwork-price fw-bold mb-0">$2,500</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

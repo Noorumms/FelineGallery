@@ -1,0 +1,15 @@
+﻿UPDATE Artworks SET ImageUrl = '/images/artworks/artwork1.jpg' WHERE ArtworkId = 1;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork2.jpg' WHERE ArtworkId = 2;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork3.jpg' WHERE ArtworkId = 3;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork4.jpg' WHERE ArtworkId = 4;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork5.jpg' WHERE ArtworkId = 5;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork6.png' WHERE ArtworkId = 6;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork7.jpg' WHERE ArtworkId = 7;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork8.jpg' WHERE ArtworkId = 8;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork9.jpg' WHERE ArtworkId = 9;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork10.jpg' WHERE ArtworkId = 10;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork11.png' WHERE ArtworkId = 11;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork12.png' WHERE ArtworkId = 12;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork13.jpg' WHERE ArtworkId = 13;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork14.jpg' WHERE ArtworkId = 14;
+UPDATE Artworks SET ImageUrl = '/images/artworks/artwork15.jpg' WHERE ArtworkId = 15;

@@ -1,0 +1,88 @@
+﻿<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border-bottom">
+    <div class="container-fluid navbar-container">
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="brand">FELINE GALLERY</a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Exhibitions" asp-action="Index" class="nav-link">Exhibitions</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Artist" asp-action="Profile" class="nav-link">Artist</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Shop
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a asp-area="" asp-controller="Shop" asp-action="Index" class="dropdown-item">All Artworks</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a asp-area="" asp-controller="Shop" asp-action="Index" class="dropdown-item">Paintings</a></li>
+                        <li><a asp-area="" asp-controller="Shop" asp-action="Index" class="dropdown-item">Monotone Art</a></li>
+                        <li><a asp-area="" asp-controller="Shop" asp-action="Index" class="dropdown-item">Drawing</a></li>
+                        <li><a asp-area="" asp-controller="Shop" asp-action="Index" class="dropdown-item">Sculpture</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Home" asp-action="About" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Cart" asp-action="Index" class="nav-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle;">
+                            <circle cx="9" cy="21" r="1"/>
+                            <circle cx="20" cy="21" r="1"/>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                        </svg>
+                        Cart
+                    </a>
+                </li>
+
+                @* Authentication Section *@
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle;">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                                Account
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="" asp-controller="Account" asp-action="Profile" class="dropdown-item">My Profile</a></li>
+                                <li><a asp-area="" asp-controller="Order" asp-action="MyOrders" class="dropdown-item">My Orders</a></li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="dropdown-item">Admin Dashboard</a></li>
+                            }
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                        <button type="submit" class="dropdown-item">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                }
+                else
+                {
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Account" asp-action="Register" class="nav-link">
+                                <span class="d-none d-lg-inline">Register</span>
+                                <span class="d-lg-none">Sign Up</span>
+                            </a>
+                        </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

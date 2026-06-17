@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Logout";
+}
+
+<div class="page-header bg-light text-center py-5">
+    <div class="container mt-5 pt-4">
+        <h1 class="display-4 fw-light mb-3">Come Back Soon</h1>
+        <p class="lead text-muted mx-auto" style="max-width: 700px;">
+            You have been successfully logged out
+        </p>
+    </div>
+</div>
+
+<section class="logout-section py-5">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="bg-light p-5 text-center">
+                    <div class="mb-4">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-muted">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                    </div>
+
+                    <h3 class="h4 fw-light mb-4">You've Been Logged Out</h3>
+                    <p class="text-muted mb-4">
+                        Thank you for visiting Feline Gallery. Your session has ended securely.
+                    </p>
+
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                        <a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-dark btn-lg">
+                            Sign In Again
+                        </a>
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-outline-dark btn-lg">
+                            Back to Home
+                        </a>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+                        <p class="mb-0 text-muted" style="font-size: 0.9rem;">
+                            Continue exploring our collection as a guest or create a new account
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

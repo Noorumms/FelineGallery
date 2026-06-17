@@ -1,0 +1,16 @@
+﻿INSERT INTO Artworks (Title, Description, CategoryId, ArtistId, Price, ImageUrl, Year, Dimensions, IsAvailable, IsFeatured, CreatedDate) VALUES 
+('Sunset Dreams', 'Beautiful abstract painting', 1, 1, 1200.00, '/images/artworks/artwork1.jpg', 2024, '24x36 inches', 1, 1, GETDATE()),
+('Mountain Vista', 'Landscape photography print', 2, 2, 450.00, '/images/artworks/artwork2.jpg', 2023, '18x24 inches', 1, 1, GETDATE()),
+('Modern Form', 'Contemporary metal sculpture', 3, 3, 2500.00, '/images/artworks/artwork3.jpg', 2024, '12x8x6 inches', 1, 0, GETDATE()),
+('Urban Nights', 'City landscape painting', 1, 1, 1800.00, '/images/artworks/artwork4.jpg', 2024, '30x40 inches', 1, 0, GETDATE()),
+('Ocean Waves', 'Seascape photography', 2, 2, 650.00, '/images/artworks/artwork5.jpg', 2023, '20x30 inches', 1, 0, GETDATE()),
+('Abstract Dreams', 'Mixed media artwork', 1, 1, 2200.00, '/images/artworks/artwork6.jpg', 2024, '36x48 inches', 1, 1, GETDATE()),
+('Forest Path', 'Nature photography', 2, 2, 550.00, '/images/artworks/artwork7.jpg', 2023, '18x24 inches', 1, 0, GETDATE()),
+('Steel Harmony', 'Metal sculpture', 3, 3, 3200.00, '/images/artworks/artwork8.jpg', 2024, '15x10x8 inches', 1, 0, GETDATE()),
+('Crimson Sunset', 'Oil painting', 1, 1, 1500.00, '/images/artworks/artwork9.jpg', 2024, '24x36 inches', 1, 0, GETDATE()),
+('Desert Storm', 'Photography print', 2, 2, 750.00, '/images/artworks/artwork10.jpg', 2023, '20x30 inches', 1, 0, GETDATE()),
+('Golden Hour', 'Acrylic painting', 1, 1, 1900.00, '/images/artworks/artwork11.jpg', 2024, '30x40 inches', 1, 0, GETDATE()),
+('Mountain Peak', 'Landscape photo', 2, 2, 850.00, '/images/artworks/artwork12.jpg', 2023, '24x36 inches', 1, 0, GETDATE()),
+('Urban Sculpture', 'Bronze sculpture', 3, 3, 4500.00, '/images/artworks/artwork13.jpg', 2024, '20x12x10 inches', 1, 0, GETDATE()),
+('Blue Horizons', 'Abstract painting', 1, 1, 2100.00, '/images/artworks/artwork14.jpg', 2024, '36x48 inches', 1, 0, GETDATE()),
+('Wildlife Portrait', 'Nature photography', 2, 2, 950.00, '/images/artworks/artwork15.jpg', 2023, '20x30 inches', 1, 0, GETDATE());
