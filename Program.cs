@@ -21,7 +21,7 @@ builder.Services.AddControllersWithViews();
 //    )
 //);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite("Data Source=FelineGallery.db")
+   options.UseSqlite($"Data Source={Path.Combine(builder.Environment.ContentRootPath, "FelineGallery.db")}")
 );
 
 // Configure Identity
