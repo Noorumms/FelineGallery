@@ -135,11 +135,11 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
-    try
-    {
-      var db = services.GetRequiredService<ApplicationDbContext>();
-      await db.Database.MigrateAsync();   // creates DB + runs migrations
-      await SeedRolesAndClaimsAsync(services);
+   try
+   {
+       var db = services.GetRequiredService<ApplicationDbContext>();
+       await db.Database.MigrateAsync();
+       await SeedRolesAndClaimsAsync(services);
     }
     catch (Exception ex)
     {
