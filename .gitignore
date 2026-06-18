@@ -6,3 +6,6 @@ obj/
 *.db
 *.cache
 *.log
+*.db-shm
+*.db-wal
+FelineGallery.db
